@@ -4,7 +4,7 @@ theme: v-green
 ## 前言
 目前手头上有个项目，要生成一些数据给客户看，如用户名、身份证号、邮箱、性别等等，但是实打实的用户数据录入也需要一段时间，时间不等人。偶然间看到 Python 里面有一个模块可以搞定我的问题，开始尝试。   
 
-![0085wA6egy1h4cm9bu6uij30j60j6dhi.jpeg](/Users/bran/workspaces/bran-note/back-end/python/assets/d56e518a8e524fa4bd4ffd9673b23c66~tplv-k3u1fbpfcp-watermark.jpeg)
+![0085wA6egy1h4cm9bu6uij30j60j6dhi.jpeg](./assets/d56e518a8e524fa4bd4ffd9673b23c66~tplv-k3u1fbpfcp-watermark.jpeg)
 
 ## 基础用法
 
@@ -161,4 +161,4 @@ mysql> select address,card_no,full_name,email,sex from user_info limit 110,10;
 
 **输出：**  
 
-![image-20220809093044695](/Users/bran/workspaces/bran-note/back-end/python/assets/image-20220809093044695.png)
+![image-20220809093044695](./assets/image-20220809093044695.png)
