@@ -2,7 +2,44 @@
 
 > 注意：LocalDateTime是不可变并且线程安全的
 
-## 1.获取当前的时间
+### 获取月初月末的时间  
+
+```java
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+
+public class TestTime {
+    public static void main(String[] args) {
+        LocalDate currDate = LocalDate.now();
+        DateTimeFormatter localDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        // 当月第一天
+        LocalDate firstDayOfMonth = currDate.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDateTime startTime = LocalDateTime.of(firstDayOfMonth, LocalTime.MIN);
+
+        // 当月最后一天
+        LocalDate lastDayOfMonth = currDate.with(TemporalAdjusters.lastDayOfMonth());
+        LocalDateTime endTime = LocalDateTime.of(lastDayOfMonth, LocalTime.MAX);
+
+        System.out.println(localDateTimeFormat.format(startTime));
+        System.out.println(localDateTimeFormat.format(endTime));
+
+    }
+}
+```
+
+**输出：**
+
+```java
+2022-08-01 00:00:00
+2022-08-31 23:59:59
+```
+
+
+
+### 获取当前的时间
 
 ```java
 LocalDateTime localDateTime = LocalDateTime.now();
@@ -27,7 +64,7 @@ System.out.println("格式化后的时间:" + fmtDate);
 > 2021-08-17T10:03:56.249
 > 格式化后的时间:2021-08-17 10:03:56
 
-## 2.时间格式转时间戳
+### 2.时间格式转时间戳
 
 将`Instant`在Java日期时间API类（`java.time.Instant`）代表在时间线上一个特定的时刻。瞬间被定义为自原点（称为`epoch`）以来的偏移量。原点是 1970 年 1 月 1 日 - 00:00 - 格林这是标准时间 (GMT)
 
