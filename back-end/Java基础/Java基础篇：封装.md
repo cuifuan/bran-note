@@ -137,7 +137,6 @@ public class TestStudent {
 }
 ```
 
-
 **输出**
 
 
@@ -154,4 +153,3 @@ ERROR: 名字不能为空！
 可以看到对象s1因为乱传参数，所以在`setter`被设定前被先检查出来，可以进一步增加程序的稳定性
 
 
-![](https://cdn.nlark.com/yuque/0/2021/png/631242/1617757211831-1b0ac9cd-5c4d-4a03-afe8-363e69e6e430.png#align=left&display=inline&height=251&margin=%5Bobject%20Object%5D&originHeight=251&originWidth=748&size=0&status=done&style=none&width=748)

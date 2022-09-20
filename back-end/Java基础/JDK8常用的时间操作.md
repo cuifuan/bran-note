@@ -37,13 +37,13 @@ public class TestTime {
 2022-08-31 23:59:59
 ```
 
-
-
 ### 获取当前的时间
 
 ```java
 LocalDateTime localDateTime = LocalDateTime.now();
 System.out.println(localDateTime);
+# 时间戳
+Instant.now().toEpochMilli();
 ```
 
 使用DateTimeFormatter来格式化时间  
@@ -64,7 +64,7 @@ System.out.println("格式化后的时间:" + fmtDate);
 > 2021-08-17T10:03:56.249
 > 格式化后的时间:2021-08-17 10:03:56
 
-### 2.时间格式转时间戳
+### 时间格式转时间戳
 
 将`Instant`在Java日期时间API类（`java.time.Instant`）代表在时间线上一个特定的时刻。瞬间被定义为自原点（称为`epoch`）以来的偏移量。原点是 1970 年 1 月 1 日 - 00:00 - 格林这是标准时间 (GMT)
 
@@ -87,7 +87,7 @@ long specificTimeX = specificTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
 System.out.println("特定时间的时间戳:" + specificTimeX);
 ```
 
-## 3.时间戳转时间
+### 时间戳转时间
 
 ```java
 LocalDate localDate = Instant.ofEpochMilli(1629166353155L).atZone(ZoneOffset.ofHours(8)).toLocalDate();
@@ -108,7 +108,7 @@ System.out.println("时间戳转换为时间并格式化输出:" + dateFmt);
 > 时间戳转换为时间输出:2021-08-17T10:12:33.155
 > 时间戳转换为时间并格式化输出:2021-08-17 10:12:33
 
-## 4.对时间进行加减
+### 对时间进行加减
 
 **对天数进行加减**
 
@@ -152,7 +152,7 @@ plusNanos()
 
 上面都是获取未来的时间，想要获取历史时间，把`plus`换成`minus`即可  
 
-## 5.获取时间差
+### 5.获取时间差
 
 有时候我们想获取两个时间的差值，这个时候我们就会用到`java.time.Duration`,使用到的方法如下  
 
@@ -211,4 +211,78 @@ System.out.println("两个时间差小时:" + duration.abs().toHours());
 > toMillis()  // 时间差值转为毫秒
 >
 > toNanos()  // 时间差值转为纳秒
+
+### 字符串转 LocalDateTime
+
+```java
+/**
+ * 字符串转 LocalDateTime
+ */
+public static LocalDateTime toLocalDateTime(String dateTime, String format) {
+    if (!StringUtils.hasLength(dateTime)) {
+        return null;
+    }
+    format = Optional.ofNullable(format).orElse("yyyy-MM-dd HH:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+    return LocalDateTime.parse(dateTime, formatter);
+}
+```
+
+
+
+### 获取指定时间的起止日期
+
+```java
+/**
+     * desc: 获取起止日期
+     * date 2022/9/14 12:57
+     *
+     * @param isFirst true 表示开始时间，false表示结束时间]
+     * @author cuifuan
+     **/
+    public static LocalDateTime getStartOrEndOfDay(LocalDateTime today, Boolean isFirst) {
+        LocalDateTime resDate = LocalDateTime.now();
+
+        if (today == null) {
+            today = resDate;
+        }
+
+        if (isFirst) {
+            resDate = today.withHour(0).withMinute(0).withSecond(0);
+        } else {
+            resDate = today.withHour(23).withMinute(59).withSecond(59);
+        }
+
+        return resDate;
+    }
+```
+
+### 获取指定日期所属周的开始与结束时间
+
+```java
+    /**
+     * desc: 获取指定日期的当周开始与结束时间
+     * date 2022/9/14 12:57
+     *
+     * @param isFirst true 表示开始时间，false表示结束时间]
+     * @author cuifuan
+     **/
+    public static LocalDateTime getStartOrEndDayOfWeek(LocalDateTime today, Boolean isFirst) {
+        LocalDateTime resDate = LocalDateTime.now();
+
+        if (today == null) {
+            today = resDate;
+        }
+
+        if (isFirst) {
+            resDate = today.with(DayOfWeek.MONDAY);
+        } else {
+            resDate = today.with(DayOfWeek.SUNDAY);
+        }
+
+        resDate = DateUtil.getStartOrEndOfDay(resDate, isFirst);
+
+        return resDate;
+    }
+```
 
